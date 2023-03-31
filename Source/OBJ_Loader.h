@@ -740,7 +740,7 @@ namespace objl
 			for (int i = 0; i < int(sface.size()); i++)
 			{
 				// See What type the vertex is.
-				int vtype;
+				int vtype = 0;
 
 				algorithm::split(sface[i], svert, "/");
 
@@ -870,7 +870,8 @@ namespace objl
 					}
 					else
 					{
-						pPrev = tVerts[i - 1];
+						int index = i - 1;
+						pPrev = tVerts[index];
 					}
 
 					// pCur = the current vertex;
@@ -884,7 +885,8 @@ namespace objl
 					}
 					else
 					{
-						pNext = tVerts[i + 1];
+						int index = i + 1;
+						pNext = tVerts[index];
 					}
 
 					// Check to see if there are only 3 verts left
@@ -946,7 +948,7 @@ namespace objl
 					}
 
 					// If Vertex is not an interior vertex
-					float angle = math::AngleBetweenV3(pPrev.Position - pCur.Position, pNext.Position - pCur.Position) * (180 / 3.14159265359);
+					float angle = static_cast<float>(math::AngleBetweenV3(pPrev.Position - pCur.Position, pNext.Position - pCur.Position) * (180 / 3.14159265359));
 					if (angle <= 0 && angle >= 180)
 						continue;
 
